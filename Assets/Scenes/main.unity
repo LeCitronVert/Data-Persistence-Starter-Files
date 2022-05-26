@@ -467,7 +467,7 @@ GameObject:
   - component: {fileID: 450625942}
   m_Layer: 0
   m_Name: MainManager
-  m_TagString: Untagged
+  m_TagString: MainManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -504,6 +504,8 @@ MonoBehaviour:
   ScoreText: {fileID: 188020406}
   GameOverText: {fileID: 474497238}
   BestScoreText: {fileID: 2078529056}
+  BestScore: 0
+  PlayerName: Player
 --- !u!1 &455529321
 GameObject:
   m_ObjectHideFlags: 0

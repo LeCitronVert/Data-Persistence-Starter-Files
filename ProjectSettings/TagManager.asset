@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - PlayerNameField
+  - MainManager
   layers:
   - Default
   - TransparentFX
