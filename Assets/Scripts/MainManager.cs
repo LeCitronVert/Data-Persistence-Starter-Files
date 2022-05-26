@@ -15,6 +15,7 @@ public class MainManager : MonoBehaviour
     public GameObject GameOverText;
     public Text BestScoreText;
     public int BestScore = 0;
+    public string BestName = "Best";
     public string PlayerName = "Player";
     
     private bool m_Started = false;
@@ -28,17 +29,18 @@ public class MainManager : MonoBehaviour
     {
         const float step = 0.6f;
         int perLine = Mathf.FloorToInt(4.0f / step);
-       
+        getPlayerName();
+
         // Load data if available
         SaveData save = new MainManager.SaveData();
         save.LoadBestScore();
         if (!string.IsNullOrEmpty(save.SavedName))
         {
-            PlayerName = save.SavedName;
+            BestName = save.SavedName;
             BestScore = save.SavedScore;
         }
 
-        setBestScore();
+        setBestScore(BestName);
 
         int[] pointCountArray = new [] {1,1,2,2,5,5};
         for (int i = 0; i < LineCount; ++i)
@@ -79,13 +81,13 @@ public class MainManager : MonoBehaviour
 
     void AddPoint(int point)
     {
-        m_Points += point;
+        m_Points += point + 10;
         ScoreText.text = $"Score : {m_Points}";
 
         if (m_Points > BestScore)
         {
             BestScore = m_Points;
-            setBestScore();
+            setBestScore(DataManager.Instance.PlayerName);
         }
     }
 
@@ -100,14 +102,14 @@ public class MainManager : MonoBehaviour
         }
     }
 
-    public string getBestScore()
+    public string getBestScore(string name)
     {
-        return "Best Score : " + getPlayerName() + " : " + BestScore;
+        return "Best Score : " + name + " : " + BestScore;
     }
 
-    public void setBestScore()
+    public void setBestScore(string name)
     {
-        BestScoreText.text = getBestScore();
+        BestScoreText.text = getBestScore(name);
     }
 
     public string getPlayerName()
@@ -125,7 +127,7 @@ public class MainManager : MonoBehaviour
         public void SaveBestScore()
         {
             SaveData data = new SaveData();
-            data.SavedName = GameObject.FindWithTag("MainManager").GetComponent<MainManager>().PlayerName;
+            data.SavedName = DataManager.Instance.PlayerName;
             data.SavedScore = GameObject.FindWithTag("MainManager").GetComponent<MainManager>().BestScore;
 
             string json = JsonUtility.ToJson(data);

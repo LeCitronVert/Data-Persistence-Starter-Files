@@ -11,6 +11,7 @@ public class DataManager : MonoBehaviour
     public void updatePlayerName(string newName)
     {
         PlayerName = newName;
+        Debug.Log(PlayerName);
     }
 
     private void Awake()
